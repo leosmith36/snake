@@ -1,6 +1,7 @@
 package snake;
 
 import java.awt.Color;
+import java.awt.Point;
 
 public class Head extends GameObject {
 
@@ -10,8 +11,13 @@ public class Head extends GameObject {
 
 	@Override
 	public void tick() {
-		setCenterX(oh.mouseX());
-		setCenterY(oh.mouseY());
+		Point newCenter = oh.mousePosition();
+//		double vecX = newCenter.x - getX();
+//		double vecY = newCenter.y - getY();
+//		Vector2d vec = new Vector2d(vecX, vecY);
+		oh.addSnakePosition(getCenter());
+		setCenter(newCenter);
+		
 	}
 
 }

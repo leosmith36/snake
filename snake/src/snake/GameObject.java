@@ -2,6 +2,7 @@ package snake;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 
 public abstract class GameObject {
 	
@@ -79,6 +80,15 @@ public abstract class GameObject {
 	
 	public void setCenterY(int centerY) {
 		setY(centerY - h / 2);
+	}
+	
+	public void setCenter(Point center) {
+		setCenterX(center.x);
+		setCenterY(center.y);
+	}
+	
+	public Point getCenter() {
+		return new Point(getCenterX(), getCenterY());
 	}
 
 }
