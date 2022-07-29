@@ -10,6 +10,7 @@ public abstract class GameObject {
 	protected int x, y, w, h;
 	protected Color c;
 	protected ObjectHandler oh;
+	protected boolean removed = false;
 	
 	public GameObject(ObjectHandler oh, int x, int y, int w, int h, Color c) {
 		this.oh = oh;
@@ -94,6 +95,14 @@ public abstract class GameObject {
 	
 	public Rectangle getRect() {
 		return new Rectangle(x, y, w, h);
+	}
+	
+	public void remove() {
+		removed = true;
+	}
+	
+	public boolean isRemoved() {
+		return removed;
 	}
 
 }

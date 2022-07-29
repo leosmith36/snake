@@ -13,7 +13,7 @@ public class MouseHandler implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		oh.addSegment();
+//		oh.addSegment();
 		
 	}
 

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.LinkedList;
+import java.util.Random;
 
 public class ObjectHandler {
 	
@@ -14,17 +15,37 @@ public class ObjectHandler {
 	private int numberSegments = 0;
 	private int headX = 0;
 	private int headY = 0;
+	private int spawnProbability = 3;
+	
+	private Random random = new Random();
 
 	public ObjectHandler() {
 		objects.add(new Head(this, Color.RED));
 	}
 
 	public void tick() {
+		
+		int randomNumber = random.nextInt(100);
+		if (randomNumber < spawnProbability) {
+			addObject(new Food(
+					this,
+					random.nextInt(Game.WIDTH),
+					random.nextInt(Game.HEIGHT),
+					Color.GREEN
+					));
+		}
+		
 		objects.addAll(newObjects);
 		newObjects.clear();
+		
+		LinkedList<GameObject> remainingObjects = new LinkedList<GameObject>();
 		for (GameObject object : objects) {
-			object.tick();
+			if (!object.isRemoved()) {
+				object.tick();
+				remainingObjects.add(object);
+			}
 		}
+		objects = remainingObjects;
 		
 	}
 	
