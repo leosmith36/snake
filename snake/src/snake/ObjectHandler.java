@@ -29,18 +29,7 @@ public class ObjectHandler {
 	}
 
 	public void tick() {
-		if (gameStarted) {
-			int randomNumber = random.nextInt(spawnProbability);
-			if (randomNumber == 1) {
-				addObject(new Food(
-						this,
-						random.nextInt(Game.WIDTH),
-						random.nextInt(Game.HEIGHT),
-						Color.GREEN
-						));
-			}
-		}
-
+		addFood();
 		
 		objects.addAll(newObjects);
 		newObjects.clear();
@@ -62,6 +51,20 @@ public class ObjectHandler {
 			object.render(g);
 		}
 		
+	}
+	
+	public void addFood() {
+		if (gameStarted) {
+			int randomNumber = random.nextInt(spawnProbability);
+			if (randomNumber == 1) {
+				addObject(new Food(
+						this,
+						random.nextInt(Game.WIDTH - 20),
+						random.nextInt(Game.HEIGHT - 20),
+						Color.GREEN
+						));
+			}
+		}
 	}
 	
 	public void addSnakePosition(Point position) {
