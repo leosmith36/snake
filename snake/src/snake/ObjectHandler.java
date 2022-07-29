@@ -17,23 +17,29 @@ public class ObjectHandler {
 	private int headY = 0;
 	private int spawnProbability = 1;
 	
+	private boolean gameStarted = false;
+	
 	private Random random = new Random();
+	
+	private Point mousePosition;
 
 	public ObjectHandler() {
-		objects.add(new Head(this, Color.RED));
+		makeStartScreen();
 	}
 
 	public void tick() {
-		
-		int randomNumber = random.nextInt(100);
-		if (randomNumber < spawnProbability) {
-			addObject(new Food(
-					this,
-					random.nextInt(Game.WIDTH),
-					random.nextInt(Game.HEIGHT),
-					Color.GREEN
-					));
+		if (gameStarted) {
+			int randomNumber = random.nextInt(100);
+			if (randomNumber < spawnProbability) {
+				addObject(new Food(
+						this,
+						random.nextInt(Game.WIDTH),
+						random.nextInt(Game.HEIGHT),
+						Color.GREEN
+						));
+			}
 		}
+
 		
 		objects.addAll(newObjects);
 		newObjects.clear();
@@ -68,6 +74,10 @@ public class ObjectHandler {
 		numberSegments++;
 		addObject(new Segment(this, Color.BLUE, numberSegments));
 	}
+	
+	public int getNumberSegments() {
+		return numberSegments;
+	}
 
 	public int getHeadX() {
 		return headX;
@@ -91,5 +101,46 @@ public class ObjectHandler {
 	
 	public void addObject(GameObject object) {
 		newObjects.add(object);
+	}
+	
+	public void clearObjects() {
+		for (GameObject object : objects) {
+			object.remove();
+		}
+		newObjects.clear();
+	}
+
+	public Point getMousePosition() {
+		return mousePosition;
+	}
+
+	public void setMousePosition(Point mousePosition) {
+		this.mousePosition = mousePosition;
+	}
+	
+	public void mouseClick() {
+		for (GameObject object : objects) {
+			if (object instanceof snake.Button) {
+				Button button = (Button) object;
+				if (button.isHovering(mousePosition)) {
+					button.execute();
+				}
+			}
+		}
+	}
+	
+	public void makeGame() {
+		clearObjects();
+		gameStarted = true;
+		snakePositions.clear();
+		numberSegments = 0;
+		addObject(new Head(this, Color.RED));
+		
+	}
+	
+	public void makeStartScreen() {
+		clearObjects();
+		gameStarted = false;
+		addObject(new Button(this, Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 25, 100, 50, Color.BLUE, oh -> {oh.makeGame();}, "PLAY", Color.WHITE));
 	}
 }
