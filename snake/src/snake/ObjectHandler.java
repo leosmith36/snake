@@ -16,7 +16,7 @@ public class ObjectHandler {
 	private int numberSegments = 0;
 	private int headX = 0;
 	private int headY = 0;
-	private int spawnProbability = 1;
+	private int spawnProbability = 100; // This means 1 out of every spawnProbability frames, there will spawn a food
 	
 	private boolean gameStarted = false;
 	
@@ -30,8 +30,8 @@ public class ObjectHandler {
 
 	public void tick() {
 		if (gameStarted) {
-			int randomNumber = random.nextInt(100);
-			if (randomNumber < spawnProbability) {
+			int randomNumber = random.nextInt(spawnProbability);
+			if (randomNumber == 1) {
 				addObject(new Food(
 						this,
 						random.nextInt(Game.WIDTH),
@@ -45,14 +45,15 @@ public class ObjectHandler {
 		objects.addAll(newObjects);
 		newObjects.clear();
 		
-		LinkedList<GameObject> remainingObjects = new LinkedList<GameObject>();
+		LinkedList<GameObject> deletedObjects = new LinkedList<GameObject>();
 		for (GameObject object : objects) {
 			if (!object.isRemoved()) {
 				object.tick();
-				remainingObjects.add(object);
+			}else {
+				deletedObjects.add(object);
 			}
 		}
-		objects = remainingObjects;
+		objects.removeAll(deletedObjects);
 		
 	}
 	
@@ -135,13 +136,15 @@ public class ObjectHandler {
 		gameStarted = true;
 		snakePositions.clear();
 		numberSegments = 0;
+		setHeadX(0);
+		setHeadY(0);
 		addObject(new Head(this, Color.RED));
-//		addObject(new Text(this, 10, 50, Color.WHITE, "0", oh -> {setText(String.valueOf(oh.getNumberSegments()));}, new Font("arial", Font.PLAIN, 24))));
+		addObject(new Text(this, 10, 30, Color.WHITE, "Score: %d", this::getNumberSegments, new Font("arial", Font.PLAIN, 24)));
 	}
 	
 	public void makeStartScreen() {
 		clearObjects();
 		gameStarted = false;
-		addObject(new Button(this, Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 25, 100, 50, Color.BLUE, oh -> {oh.makeGame();}, "PLAY", Color.WHITE, new Font("arial", Font.PLAIN, 24)));
+		addObject(new Button(this, Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 25, 100, 50, Color.BLUE, this::makeGame, "PLAY", Color.WHITE, new Font("arial", Font.PLAIN, 24)));
 	}
 }

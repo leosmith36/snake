@@ -6,11 +6,13 @@ import java.util.LinkedList;
 
 public class Segment extends GameObject {
 	
+	private int number;
 	private int index;
 
 	public Segment(ObjectHandler oh, Color c, int number) {
 		super(oh, 0, 0, 25, 25, c);
-		index = (number * 8) + 2;
+		this.number = number;
+		index = (number * 8) + 1;
 		setCenter(oh.getSnakePositions().get(index));
 		
 	}
@@ -19,6 +21,10 @@ public class Segment extends GameObject {
 	public void tick() {
 		LinkedList<Point> positions = oh.getSnakePositions();
 		setCenter(positions.get(index));
+	}
+	
+	public int getNumber() {
+		return number;
 	}
 
 }

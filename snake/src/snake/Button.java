@@ -8,12 +8,12 @@ import java.util.function.Consumer;
 
 public class Button extends GameObject {
 	
-	Consumer<ObjectHandler> command;
+	Runnable command;
 	String text;
 	Color textColor;
 	Font textFont;
 
-	public Button(ObjectHandler oh, int x, int y, int w, int h, Color c, Consumer<ObjectHandler> command, String text, Color textColor, Font textFont) {
+	public Button(ObjectHandler oh, int x, int y, int w, int h, Color c, Runnable command, String text, Color textColor, Font textFont) {
 		super(oh, x, y, w, h, c);
 		this.text = text;
 		this.command = command;
@@ -38,7 +38,7 @@ public class Button extends GameObject {
 	}
 
 	public void execute() {
-		command.accept(oh);
+		command.run();
 	}
 	
 	public boolean isHovering(Point mousePosition) {

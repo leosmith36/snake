@@ -23,20 +23,20 @@ public class KeyHandler implements KeyListener {
 		int code = e.getKeyCode();
 		if (oh.getHeadX() == 0) {
 			if (code == KeyEvent.VK_D) {
-				oh.setHeadX(5);
+				oh.setHeadX(Head.speed);
 				oh.setHeadY(0);
 			}else if (code == KeyEvent.VK_A) {
-				oh.setHeadX(-5);
+				oh.setHeadX(-Head.speed);
 				oh.setHeadY(0);
 			}
 		}
 		if (oh.getHeadY() == 0) {
 			if (code == KeyEvent.VK_S) {
 				oh.setHeadX(0);
-				oh.setHeadY(5);
+				oh.setHeadY(Head.speed);
 			}else if (code == KeyEvent.VK_W) {
 				oh.setHeadX(0);
-				oh.setHeadY(-5);
+				oh.setHeadY(-Head.speed);
 			}
 		}
 		
