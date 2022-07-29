@@ -1,6 +1,7 @@
 package snake;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.LinkedList;
@@ -135,12 +136,12 @@ public class ObjectHandler {
 		snakePositions.clear();
 		numberSegments = 0;
 		addObject(new Head(this, Color.RED));
-		
+//		addObject(new Text(this, 10, 50, Color.WHITE, "0", oh -> {setText(String.valueOf(oh.getNumberSegments()));}, new Font("arial", Font.PLAIN, 24))));
 	}
 	
 	public void makeStartScreen() {
 		clearObjects();
 		gameStarted = false;
-		addObject(new Button(this, Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 25, 100, 50, Color.BLUE, oh -> {oh.makeGame();}, "PLAY", Color.WHITE));
+		addObject(new Button(this, Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 25, 100, 50, Color.BLUE, oh -> {oh.makeGame();}, "PLAY", Color.WHITE, new Font("arial", Font.PLAIN, 24)));
 	}
 }

@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 public class Head extends GameObject {
 
 	public Head(ObjectHandler oh, Color c) {
-		super(oh, Game.WIDTH / 2, Game.HEIGHT / 2, 20, 20, c);
+		super(oh, Game.WIDTH / 2, Game.HEIGHT / 2, 30, 30, c);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package snake;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.function.Consumer;
@@ -10,12 +11,14 @@ public class Button extends GameObject {
 	Consumer<ObjectHandler> command;
 	String text;
 	Color textColor;
+	Font textFont;
 
-	public Button(ObjectHandler oh, int x, int y, int w, int h, Color c, Consumer<ObjectHandler> command, String text, Color textColor) {
+	public Button(ObjectHandler oh, int x, int y, int w, int h, Color c, Consumer<ObjectHandler> command, String text, Color textColor, Font textFont) {
 		super(oh, x, y, w, h, c);
 		this.text = text;
 		this.command = command;
 		this.textColor = textColor;
+		this.textFont = textFont;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -28,8 +31,10 @@ public class Button extends GameObject {
 	public void render(Graphics g) {
 		super.render(g);
 		g.setColor(textColor);
+		g.setFont(textFont);
 		int stringWidth = g.getFontMetrics().stringWidth(text);
-		g.drawString(text, getCenterX() - stringWidth / 2, getCenterY());
+		int stringHeight = g.getFontMetrics().getHeight();
+		g.drawString(text, getCenterX() - stringWidth / 2, getCenterY() + stringHeight / 3);
 	}
 
 	public void execute() {
