@@ -20,7 +20,7 @@ public class Head extends GameObject {
 		for (GameObject object : oh.getObjects()) {
 			Rectangle segRect = object.getRect();
 			if ((object instanceof snake.Segment) && (headRect.intersects(segRect))) {
-				oh.clearObjects();
+				c = Color.yellow;
 			}
 		}
 		

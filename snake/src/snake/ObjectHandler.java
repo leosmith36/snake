@@ -15,7 +15,7 @@ public class ObjectHandler {
 	private int numberSegments = 0;
 	private int headX = 0;
 	private int headY = 0;
-	private int spawnProbability = 3;
+	private int spawnProbability = 1;
 	
 	private Random random = new Random();
 
@@ -90,10 +90,6 @@ public class ObjectHandler {
 	}
 	
 	public void addObject(GameObject object) {
-		objects.add(object);
-	}
-	
-	public void clearObjects() {
-		objects.clear();
+		newObjects.add(object);
 	}
 }
