@@ -3,6 +3,7 @@ package snake;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
 
 public abstract class GameObject {
 	
@@ -89,6 +90,10 @@ public abstract class GameObject {
 	
 	public Point getCenter() {
 		return new Point(getCenterX(), getCenterY());
+	}
+	
+	public Rectangle getRect() {
+		return new Rectangle(x, y, w, h);
 	}
 
 }

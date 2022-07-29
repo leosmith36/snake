@@ -8,17 +8,20 @@ import java.util.LinkedList;
 public class ObjectHandler {
 	
 	private LinkedList<GameObject> objects = new LinkedList<GameObject>();
+	private LinkedList<GameObject> newObjects = new LinkedList<GameObject>();
 	private LinkedList<Point> snakePositions = new LinkedList<Point>();
 	
-	private Point mouseLocation = new Point();
-	
 	private int numberSegments = 0;
+	private int headX = 0;
+	private int headY = 0;
 
 	public ObjectHandler() {
-		objects.add(new Head(this, Game.WIDTH / 2, Game.HEIGHT / 2, 20, 20, Color.RED));
+		objects.add(new Head(this, Color.RED));
 	}
 
 	public void tick() {
+		objects.addAll(newObjects);
+		newObjects.clear();
 		for (GameObject object : objects) {
 			object.tick();
 		}
@@ -26,19 +29,10 @@ public class ObjectHandler {
 	}
 	
 	public void render(Graphics g) {
-		
 		for (GameObject object : objects) {
 			object.render(g);
 		}
 		
-	}
-	
-	public void setMouseLocation(Point mouseLocation) {
-		this.mouseLocation = mouseLocation;
-	}
-	
-	public Point mousePosition() {
-		return mouseLocation;
 	}
 	
 	public void addSnakePosition(Point position) {
@@ -51,6 +45,34 @@ public class ObjectHandler {
 	
 	public void addSegment() {
 		numberSegments++;
-		objects.add(new Segment(this,0,0,20,20,Color.BLUE,numberSegments));
+		addObject(new Segment(this, Color.BLUE, numberSegments));
+	}
+
+	public int getHeadX() {
+		return headX;
+	}
+
+	public void setHeadX(int headX) {
+		this.headX = headX;
+	}
+
+	public int getHeadY() {
+		return headY;
+	}
+
+	public void setHeadY(int headY) {
+		this.headY = headY;
+	}
+	
+	public LinkedList<GameObject> getObjects(){
+		return objects;
+	}
+	
+	public void addObject(GameObject object) {
+		objects.add(object);
+	}
+	
+	public void clearObjects() {
+		objects.clear();
 	}
 }

@@ -1,22 +1,28 @@
 package snake;
 
 import java.awt.Color;
-import java.awt.Point;
+import java.awt.Rectangle;
 
 public class Head extends GameObject {
 
-	public Head(ObjectHandler oh, int x, int y, int w, int h, Color c) {
-		super(oh, x, y, w, h, c);
+	public Head(ObjectHandler oh, Color c) {
+		super(oh, Game.WIDTH / 2, Game.HEIGHT / 2, 20, 20, c);
 	}
 
 	@Override
 	public void tick() {
-		Point newCenter = oh.mousePosition();
-//		double vecX = newCenter.x - getX();
-//		double vecY = newCenter.y - getY();
-//		Vector2d vec = new Vector2d(vecX, vecY);
+		
+		x += oh.getHeadX();
+		y += oh.getHeadY();
 		oh.addSnakePosition(getCenter());
-		setCenter(newCenter);
+		
+		Rectangle headRect = getRect();
+		for (GameObject object : oh.getObjects()) {
+			Rectangle segRect = object.getRect();
+			if ((object instanceof snake.Segment) && (headRect.contains(segRect))) {
+				oh.clearObjects();
+			}
+		}
 		
 	}
 

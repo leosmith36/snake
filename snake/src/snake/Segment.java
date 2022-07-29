@@ -8,15 +8,15 @@ public class Segment extends GameObject {
 	
 	private int number;
 
-	public Segment(ObjectHandler oh, int x, int y, int w, int h, Color c, int number) {
-		super(oh, x, y, w, h, c);
-		this.setNumber(number);
+	public Segment(ObjectHandler oh, Color c, int number) {
+		super(oh, oh.getSnakePositions().get(number * 5).x, oh.getSnakePositions().get(number * 5).y, 20, 20, c);
+		this.number = number;
 	}
 
 	@Override
 	public void tick() {
 		LinkedList<Point> positions = oh.getSnakePositions();
-		setCenter(positions.get(number));
+		setCenter(positions.get(number * 5));
 	}
 
 	public int getNumber() {
