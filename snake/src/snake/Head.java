@@ -26,12 +26,14 @@ public class Head extends GameObject {
 				Rectangle segRect = seg.getRect();
 				if ((headRect.intersects(segRect)) && (seg.getNumber() != 1)) {
 					oh.makeEndScreen();
+					this.remove();
 				}
 			}
 		}
 		
 		if ((x < 0) || (x > Game.WIDTH - w - 20) || (y < 0) || (y > Game.HEIGHT - h - 30)) {
 			oh.makeEndScreen();
+			this.remove();
 		}
 		
 	}

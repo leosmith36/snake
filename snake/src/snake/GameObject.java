@@ -24,12 +24,15 @@ public abstract class GameObject {
 	
 	public GameObject(ObjectHandler oh, int x, int y, int w, int h, Color c, boolean center) {
 		this.oh = oh;
+		this.w = w;
+		this.h = h;
 		if (center) {
 			setCenterX(x);
 			setCenterY(y);
+		}else {
+			this.x = x;
+			this.y = y;
 		}
-		this.w = w;
-		this.h = h;
 		this.c = c;
 		this.center = center;
 	}
@@ -37,6 +40,11 @@ public abstract class GameObject {
 	public abstract void tick();
 	
 	public void render(Graphics g) {
+		g.setColor(c);
+		g.fillRect(x, y, w, h);
+	}
+	
+	public void render(Graphics g, Color c) {
 		g.setColor(c);
 		g.fillRect(x, y, w, h);
 	}

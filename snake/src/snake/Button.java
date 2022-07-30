@@ -13,8 +13,8 @@ public class Button extends GameObject {
 	Color textColor;
 	Font textFont;
 
-	public Button(ObjectHandler oh, int x, int y, int w, int h, Color c, Runnable command, String text, Color textColor, Font textFont) {
-		super(oh, x, y, w, h, c);
+	public Button(ObjectHandler oh, int x, int y, int w, int h, Color c, Runnable command, String text, Color textColor, Font textFont, boolean center) {
+		super(oh, x, y, w, h, c, center);
 		this.text = text;
 		this.command = command;
 		this.textColor = textColor;
@@ -29,7 +29,13 @@ public class Button extends GameObject {
 	}
 	
 	public void render(Graphics g) {
-		super.render(g);
+		Color newC;
+		if (isHovering(oh.getMousePosition())) {
+			newC = new Color(c.getRed(), c.getGreen(), c.getBlue(), 127);
+		}else {
+			newC = c;
+		}
+		super.render(g, newC);
 		g.setColor(textColor);
 		g.setFont(textFont);
 		int stringWidth = g.getFontMetrics().stringWidth(text);

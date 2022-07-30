@@ -20,7 +20,6 @@ public class ObjectHandler {
 	private int numberSegments = 0;
 	private int headX = 0;
 	private int headY = 0;
-	private int spawnProbability = 100; // This means 1 out of every spawnProbability frames, there will spawn a food
 	
 	private long time = System.currentTimeMillis();
 	
@@ -29,7 +28,7 @@ public class ObjectHandler {
 	
 	private Random random = new Random();
 	
-	private Point mousePosition;
+	private Point mousePosition = new Point();
 
 	public ObjectHandler() {
 		makeStartScreen();
@@ -52,9 +51,9 @@ public class ObjectHandler {
 				Button button = (Button) object;
 				if (button.isHovering(mousePosition)){
 					button.execute();
+					mouseClicked = false;
 				}
 			}
-			mouseClicked = false;
 		}
 		objects.removeAll(deletedObjects);
 		
@@ -148,24 +147,24 @@ public class ObjectHandler {
 		numberSegments = 0;
 		setHeadX(0);
 		setHeadY(0);
-		addObject(new Text(this, 10, 30, Color.WHITE, "Current Score: %d", this::getNumberSegments, new Font("arial", Font.PLAIN, 20)));
-		addObject(new Text(this, 10, 60, Color.WHITE, String.format("High Score: %d", getHighScore()), new Font("arial", Font.PLAIN, 20)));
+		addObject(new Text(this, 10, 30, Color.WHITE, "Current Score: %d", this::getNumberSegments, new Font("arial", Font.PLAIN, 20), false));
+		addObject(new Text(this, 10, 60, Color.WHITE, String.format("High Score: %d", getHighScore()), new Font("arial", Font.PLAIN, 20), false));
 		addObject(new Head(this, Color.RED));
 	}
 	
 	public void makeStartScreen() {
 		clearObjects();
 		gameStarted = false;
-		addObject(new Button(this, Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 25, 100, 50, Color.BLUE, this::makeGame, "PLAY", Color.WHITE, new Font("arial", Font.PLAIN, 24)));
+		addObject(new Button(this, Game.WIDTH / 2, Game.HEIGHT / 2, 100, 50, Color.BLUE, this::makeGame, "PLAY", Color.WHITE, new Font("arial", Font.PLAIN, 24), true));
 	}
 	
 	public void makeEndScreen() {
 		clearObjects();
 		gameStarted = false;
 		if (getHighScore() < numberSegments) {
-			addObject(new Text(this, Game.WIDTH / 2 - 50, 100, Color.WHITE, "New high score!", new Font("arial", Font.BOLD, 48)));
+			addObject(new Text(this, Game.WIDTH / 2, 100, Color.WHITE, "New high score!", new Font("arial", Font.BOLD, 48), true));
 		}
-		addObject(new Button(this, Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 25, 100, 50, Color.BLUE, this::makeGame, "RETRY", Color.WHITE, new Font("arial", Font.PLAIN, 24)));
+		addObject(new Button(this, Game.WIDTH / 2, Game.HEIGHT / 2, 100, 50, Color.BLUE, this::makeGame, "RETRY", Color.WHITE, new Font("arial", Font.PLAIN, 24), true));
 		saveHighScore();
 	}
 	
