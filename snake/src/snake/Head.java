@@ -6,9 +6,10 @@ import java.awt.Rectangle;
 public class Head extends GameObject {
 	
 	public static int speed = 4;
+	public static int size = 30;
 
 	public Head(ObjectHandler oh, Color c) {
-		super(oh, Game.WIDTH / 2, Game.HEIGHT / 2, 30, 30, c);
+		super(oh, Game.WIDTH / 2, Game.HEIGHT / 2, Head.size, Head.size, c);
 	}
 
 	@Override
@@ -29,8 +30,8 @@ public class Head extends GameObject {
 			}
 		}
 		
-		if ((x < 0) || (x > Game.WIDTH - w) || (y < 0) || (y > Game.HEIGHT - h)) {
-			oh.makeStartScreen();
+		if ((x < 0) || (x > Game.WIDTH - w - 20) || (y < 0) || (y > Game.HEIGHT - h - 30)) {
+			oh.makeEndScreen();
 		}
 		
 	}
