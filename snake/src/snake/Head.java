@@ -25,7 +25,7 @@ public class Head extends GameObject {
 				Segment seg = (Segment) object;
 				Rectangle segRect = seg.getRect();
 				if ((headRect.intersects(segRect)) && (seg.getNumber() != 1)) {
-					oh.makeStartScreen();
+					oh.makeEndScreen();
 				}
 			}
 		}

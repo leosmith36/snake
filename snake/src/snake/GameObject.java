@@ -11,6 +11,7 @@ public abstract class GameObject {
 	protected Color c;
 	protected ObjectHandler oh;
 	protected boolean removed = false;
+	protected boolean center = false;
 	
 	public GameObject(ObjectHandler oh, int x, int y, int w, int h, Color c) {
 		this.oh = oh;
@@ -19,6 +20,18 @@ public abstract class GameObject {
 		this.w = w;
 		this.h = h;
 		this.c = c;
+	}
+	
+	public GameObject(ObjectHandler oh, int x, int y, int w, int h, Color c, boolean center) {
+		this.oh = oh;
+		if (center) {
+			setCenterX(x);
+			setCenterY(y);
+		}
+		this.w = w;
+		this.h = h;
+		this.c = c;
+		this.center = center;
 	}
 
 	public abstract void tick();
