@@ -36,7 +36,6 @@ public class ObjectHandler {
 	}
 
 	public void tick() {
-		Head.speed = 4 + numberSegments / 10;
 		
 		addFood();
 		
