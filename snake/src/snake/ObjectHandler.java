@@ -21,10 +21,11 @@ public class ObjectHandler {
 	private int headX = 0;
 	private int headY = 0;
 	
-	private long time = System.currentTimeMillis();
+	private long time;
 	
 	private boolean gameStarted = false;
 	private boolean mouseClicked = false;
+	private boolean snakeMoving = false;
 	
 	private Random random = new Random();
 	
@@ -35,6 +36,8 @@ public class ObjectHandler {
 	}
 
 	public void tick() {
+		Head.speed = 4 + numberSegments / 10;
+		
 		addFood();
 		
 		objects.addAll(newObjects);
@@ -69,13 +72,13 @@ public class ObjectHandler {
 	public void addFood() {
 		long currentTime = System.currentTimeMillis();
 		float diff = (currentTime - time) / 1000.0f;
-		if (gameStarted && (diff >= 3)) {
+		if (gameStarted && snakeMoving && (diff >= 3)) {
 			time = currentTime;
 			addObject(new Food(
 					this,
 					random.nextInt(Game.WIDTH - Food.size - 20),
 					random.nextInt(Game.HEIGHT - Food.size - 30),
-					Color.GREEN
+					new Color(0,0,0,0)
 					));
 		}
 	}
@@ -195,5 +198,12 @@ public class ObjectHandler {
 			highScore = 0;
 		}
 		return highScore;
+	}
+	
+	public void snakeIsMoving() {
+		if (!snakeMoving) {
+			snakeMoving = true;
+			time = System.currentTimeMillis();
+		}
 	}
 }

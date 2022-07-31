@@ -6,10 +6,12 @@ import java.awt.Rectangle;
 public class Food extends GameObject {
 	
 	public static int size = 20;
+	
+	private long time;
 
 	public Food(ObjectHandler oh, int x, int y, Color c) {
-		super(oh, x, y, Food.size, Food.size, c);
-		// TODO Auto-generated constructor stub
+		super(oh, x, y, Food.size, Food.size, c, "apple.png");
+		time = System.currentTimeMillis();
 	}
 
 	@Override
@@ -22,6 +24,12 @@ public class Food extends GameObject {
 				oh.addSegment();
 				remove();
 			}
+		}
+		
+		long newTime = System.currentTimeMillis();
+		float diff = (newTime - time) / 1000.0f;
+		if (diff >= 5) {
+			remove();
 		}
 		
 	}

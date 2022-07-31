@@ -25,18 +25,22 @@ public class KeyHandler implements KeyListener {
 			if (code == KeyEvent.VK_D) {
 				oh.setHeadX(Head.speed);
 				oh.setHeadY(0);
+				oh.snakeIsMoving();
 			}else if (code == KeyEvent.VK_A) {
 				oh.setHeadX(-Head.speed);
 				oh.setHeadY(0);
+				oh.snakeIsMoving();
 			}
 		}
 		if (oh.getHeadY() == 0) {
 			if (code == KeyEvent.VK_S) {
 				oh.setHeadX(0);
 				oh.setHeadY(Head.speed);
+				oh.snakeIsMoving();
 			}else if (code == KeyEvent.VK_W) {
 				oh.setHeadX(0);
 				oh.setHeadY(-Head.speed);
+				oh.snakeIsMoving();
 			}
 		}
 		

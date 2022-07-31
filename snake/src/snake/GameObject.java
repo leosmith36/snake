@@ -2,8 +2,10 @@ package snake;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 
 public abstract class GameObject {
 	
@@ -12,6 +14,7 @@ public abstract class GameObject {
 	protected ObjectHandler oh;
 	protected boolean removed = false;
 	protected boolean center = false;
+	protected String image;
 	
 	public GameObject(ObjectHandler oh, int x, int y, int w, int h, Color c) {
 		this.oh = oh;
@@ -20,6 +23,16 @@ public abstract class GameObject {
 		this.w = w;
 		this.h = h;
 		this.c = c;
+	}
+	
+	public GameObject(ObjectHandler oh, int x, int y, int w, int h, Color c, String image) {
+		this.oh = oh;
+		this.x = x;
+		this.y = y;
+		this.w = w;
+		this.h = h;
+		this.c = c;
+		this.image = image;
 	}
 	
 	public GameObject(ObjectHandler oh, int x, int y, int w, int h, Color c, boolean center) {
@@ -42,11 +55,16 @@ public abstract class GameObject {
 	public void render(Graphics g) {
 		g.setColor(c);
 		g.fillRect(x, y, w, h);
+		if (image != null) {
+			Image drawImage = Toolkit.getDefaultToolkit().getImage(image);
+			g.drawImage(drawImage, x, y, null);
+		}
 	}
 	
 	public void render(Graphics g, Color c) {
 		g.setColor(c);
 		g.fillRect(x, y, w, h);
+
 	}
 	
 	public int getX() {

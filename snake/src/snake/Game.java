@@ -1,8 +1,9 @@
 package snake;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable {
@@ -38,8 +39,10 @@ public class Game extends Canvas implements Runnable {
 		
 		Graphics g = bs.getDrawGraphics();
 		
-		g.setColor(Color.black);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+//		g.setColor(Color.black);
+//		g.fillRect(0, 0, WIDTH, HEIGHT);
+		Image bg = Toolkit.getDefaultToolkit().getImage("grass.png");
+		g.drawImage(bg, 0, 0, null);
 		
 		oh.render(g);
 		

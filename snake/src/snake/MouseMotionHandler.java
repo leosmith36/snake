@@ -1,6 +1,5 @@
 package snake;
 
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 

@@ -9,7 +9,7 @@ public class Head extends GameObject {
 	public static int size = 30;
 
 	public Head(ObjectHandler oh, Color c) {
-		super(oh, Game.WIDTH / 2, Game.HEIGHT / 2, Head.size, Head.size, c);
+		super(oh, Game.WIDTH / 2, Game.HEIGHT / 2, Head.size, Head.size, c, "head_right.png");
 	}
 
 	@Override
@@ -27,6 +27,7 @@ public class Head extends GameObject {
 				if ((headRect.intersects(segRect)) && (seg.getNumber() != 1)) {
 					oh.makeEndScreen();
 					this.remove();
+					return;
 				}
 			}
 		}
@@ -36,6 +37,23 @@ public class Head extends GameObject {
 			this.remove();
 		}
 		
+		changeImage();
+		
+	}
+	
+	public void changeImage() {
+		int velX = oh.getHeadX();
+		int velY = oh.getHeadY();
+		if (velX > 0) {
+			image = "head_right.png";
+		}else if (velX < 0) {
+			image = "head_left.png";
+		}
+		if (velY > 0) {
+			image = "head_down.png";
+		}else if (velY < 0) {
+			image = "head_up.png";
+		}
 	}
 
 }

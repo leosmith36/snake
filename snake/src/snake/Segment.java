@@ -14,7 +14,7 @@ public class Segment extends GameObject {
 	public Segment(ObjectHandler oh, int number) {
 		super(oh, 0, 0, Segment.size, Segment.size, Segment.getCorrespondingColor(number));
 		this.number = number;
-		index = (number * 8) + 1;
+		index = (8 * number) + 1;
 		setCenter(oh.getSnakePositions().get(index));
 		
 	}
