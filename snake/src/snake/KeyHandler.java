@@ -21,45 +21,16 @@ public class KeyHandler implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();
-		
-		if (code == KeyEvent.VK_D) {
-			Head.moveVertical = false;
-			Head.speed = 50;
-		}else if (code == KeyEvent.VK_A) {
-			Head.moveVertical = false;
-			Head.speed = -50;
-		}else if (code == KeyEvent.VK_W) {
-			Head.moveVertical = true;
-			Head.speed = -50;
-		}else if (code == KeyEvent.VK_S) {
-			Head.moveVertical = true;
-			Head.speed = 50;
+		Head head = oh.getSnakeHead();
+		if (code == KeyEvent.VK_D && !head.isMovingHorizontal()) {
+			head.setDirection(Move.RIGHT);
+		}else if (code == KeyEvent.VK_A && !head.isMovingHorizontal()) {
+			head.setDirection(Move.LEFT);
+		}else if (code == KeyEvent.VK_W && !head.isMovingVertical()) {
+			head.setDirection(Move.UP);
+		}else if (code == KeyEvent.VK_S && !head.isMovingVertical()) {
+			head.setDirection(Move.DOWN);
 		}
-		
-		
-//		if (oh.getHeadX() == 0) {
-//			if (code == KeyEvent.VK_D) {
-////				oh.setHeadX(Head.speed);
-////				oh.setHeadY(0);
-//				oh.snakeIsMoving();
-//			}else if (code == KeyEvent.VK_A) {
-////				oh.setHeadX(-Head.speed);
-////				oh.setHeadY(0);
-//				oh.snakeIsMoving();
-//			}
-//		}
-//		if (oh.getHeadY() == 0) {
-//			if (code == KeyEvent.VK_S) {
-//				oh.setHeadX(0);
-//				oh.setHeadY(Head.speed);
-//				oh.snakeIsMoving();
-//			}else if (code == KeyEvent.VK_W) {
-//				oh.setHeadX(0);
-//				oh.setHeadY(-Head.speed);
-//				oh.snakeIsMoving();
-//			}
-//		}
-		
 	}
 
 	@Override

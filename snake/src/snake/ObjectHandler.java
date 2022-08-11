@@ -18,18 +18,17 @@ public class ObjectHandler {
 	private LinkedList<Point> snakePositions = new LinkedList<Point>();
 	
 	private int numberSegments = 0;
-	private int headX = 0;
-	private int headY = 0;
-	
+
 	private long time;
 	
 	private boolean gameStarted = false;
 	private boolean mouseClicked = false;
-	private boolean snakeMoving = false;
 	
 	private Random random = new Random();
 	
 	private Point mousePosition = new Point();
+	
+	private Head snakeHead;
 
 	public ObjectHandler() {
 		makeStartScreen();
@@ -49,11 +48,11 @@ public class ObjectHandler {
 			}else {
 				deletedObjects.add(object);
 			}
-			if (mouseClicked && (object instanceof snake.Button)) {
+			if (Game.mouseClicked && (object instanceof snake.Button)) {
 				Button button = (Button) object;
 				if (button.isHovering(mousePosition)){
 					button.execute();
-					mouseClicked = false;
+					Game.mouseClicked = false;
 				}
 			}
 		}
@@ -63,11 +62,12 @@ public class ObjectHandler {
 	
 	public void render(Graphics g) {
 		
-		for (int i = 50; i < Game.WIDTH; i += 50) {
-			g.drawLine(i, 0, i, Game.HEIGHT);
+		g.setColor(Color.BLACK);
+		for (int i = 50; i < Game.SIZE; i += 50) {
+			g.drawLine(i, 0, i, Game.SIZE);
 		}
-		for (int i = 50; i < Game.HEIGHT; i += 50) {
-			g.drawLine(0, i, Game.WIDTH, i);
+		for (int i = 50; i < Game.SIZE; i += 50) {
+			g.drawLine(0, i, Game.SIZE, i);
 		}
 		
 		for (GameObject object : objects) {
@@ -79,13 +79,14 @@ public class ObjectHandler {
 	public void addFood() {
 		long currentTime = System.currentTimeMillis();
 		float diff = (currentTime - time) / 1000.0f;
-		if (gameStarted && snakeMoving && (diff >= 3)) {
+		if (gameStarted && (diff >= 3)) {
 			time = currentTime;
 			addObject(new Food(
 					this,
-					random.nextInt(Game.WIDTH - Food.size - 20),
-					random.nextInt(Game.HEIGHT - Food.size - 30),
-					new Color(0,0,0,0)
+					random.nextInt(Game.SIZE / 50) * 50 + 25,
+					random.nextInt(Game.SIZE / 50) * 50 + 25,
+					new Color(0,0,0,0),
+					true
 					));
 		}
 	}
@@ -105,22 +106,6 @@ public class ObjectHandler {
 	
 	public int getNumberSegments() {
 		return numberSegments;
-	}
-
-	public int getHeadX() {
-		return headX;
-	}
-
-	public void setHeadX(int headX) {
-		this.headX = headX;
-	}
-
-	public int getHeadY() {
-		return headY;
-	}
-
-	public void setHeadY(int headY) {
-		this.headY = headY;
 	}
 	
 	public LinkedList<GameObject> getObjects(){
@@ -155,26 +140,25 @@ public class ObjectHandler {
 		gameStarted = true;
 		snakePositions.clear();
 		numberSegments = 0;
-		setHeadX(0);
-		setHeadY(0);
 		addObject(new Text(this, 10, 30, Color.WHITE, "Current Score: %d", this::getNumberSegments, new Font("arial", Font.PLAIN, 20), false));
 		addObject(new Text(this, 10, 60, Color.WHITE, String.format("High Score: %d", getHighScore()), new Font("arial", Font.PLAIN, 20), false));
-		addObject(new Head(this, Color.RED));
+		snakeHead = new Head(this, Color.RED);
+		addObject(snakeHead);
 	}
 	
 	public void makeStartScreen() {
 		clearObjects();
 		gameStarted = false;
-		addObject(new Button(this, Game.WIDTH / 2, Game.HEIGHT / 2, 100, 50, Color.BLUE, this::makeGame, "PLAY", Color.WHITE, new Font("arial", Font.PLAIN, 24), true));
+		addObject(new Button(this, Game.SIZE / 2, Game.SIZE / 2, 100, 50, Color.BLUE, this::makeGame, "PLAY", Color.WHITE, new Font("arial", Font.PLAIN, 24), true));
 	}
 	
 	public void makeEndScreen() {
 		clearObjects();
 		gameStarted = false;
 		if (getHighScore() < numberSegments) {
-			addObject(new Text(this, Game.WIDTH / 2, 100, Color.WHITE, "New high score!", new Font("arial", Font.BOLD, 48), true));
+			addObject(new Text(this, Game.SIZE / 2, 100, Color.WHITE, "New high score!", new Font("arial", Font.BOLD, 48), true));
 		}
-		addObject(new Button(this, Game.WIDTH / 2, Game.HEIGHT / 2, 100, 50, Color.BLUE, this::makeGame, "RETRY", Color.WHITE, new Font("arial", Font.PLAIN, 24), true));
+		addObject(new Button(this, Game.SIZE / 2, Game.SIZE / 2, 100, 50, Color.BLUE, this::makeGame, "RETRY", Color.WHITE, new Font("arial", Font.PLAIN, 24), true));
 		saveHighScore();
 	}
 	
@@ -207,10 +191,7 @@ public class ObjectHandler {
 		return highScore;
 	}
 	
-	public void snakeIsMoving() {
-		if (!snakeMoving) {
-			snakeMoving = true;
-			time = System.currentTimeMillis();
-		}
+	public Head getSnakeHead() {
+		return snakeHead;
 	}
 }

@@ -13,7 +13,8 @@ public class MouseHandler implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		oh.mouseClick();
+//		oh.mouseClick();
+		Game.mouseClicked = true;
 		
 	}
 

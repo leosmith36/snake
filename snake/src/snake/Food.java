@@ -5,12 +5,14 @@ import java.awt.Rectangle;
 
 public class Food extends GameObject {
 	
-	public static int size = 20;
+	public static final int size = 20;
+	
+	public static int lifetime = 5;
 	
 	private long time;
 
-	public Food(ObjectHandler oh, int x, int y, Color c) {
-		super(oh, x, y, Food.size, Food.size, c, "apple.png");
+	public Food(ObjectHandler oh, int x, int y, Color c, boolean center) {
+		super(oh, x, y, Food.size, Food.size, c, center, "apple.png");
 		time = System.currentTimeMillis();
 	}
 
@@ -28,7 +30,7 @@ public class Food extends GameObject {
 		
 		long newTime = System.currentTimeMillis();
 		float diff = (newTime - time) / 1000.0f;
-		if (diff >= 5) {
+		if (diff >= lifetime) {
 			remove();
 		}
 		
