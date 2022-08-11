@@ -8,10 +8,10 @@ import java.util.function.Consumer;
 
 public class Button extends GameObject {
 	
-	Runnable command;
-	String text;
-	Color textColor;
-	Font textFont;
+	private Runnable command;
+	private String text;
+	private Color textColor;
+	private Font textFont;
 
 	public Button(ObjectHandler oh, int x, int y, int w, int h, Color c, Runnable command, String text, Color textColor, Font textFont, boolean center) {
 		super(oh, x, y, w, h, c, center);
