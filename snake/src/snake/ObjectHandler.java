@@ -62,6 +62,14 @@ public class ObjectHandler {
 	}
 	
 	public void render(Graphics g) {
+		
+		for (int i = 50; i < Game.WIDTH; i += 50) {
+			g.drawLine(i, 0, i, Game.HEIGHT);
+		}
+		for (int i = 50; i < Game.HEIGHT; i += 50) {
+			g.drawLine(0, i, Game.WIDTH, i);
+		}
+		
 		for (GameObject object : objects) {
 			object.render(g);
 		}

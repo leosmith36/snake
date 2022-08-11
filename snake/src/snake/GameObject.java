@@ -49,6 +49,22 @@ public abstract class GameObject {
 		this.c = c;
 		this.center = center;
 	}
+	
+	public GameObject(ObjectHandler oh, int x, int y, int w, int h, Color c, boolean center, String image) {
+		this.oh = oh;
+		this.w = w;
+		this.h = h;
+		if (center) {
+			setCenterX(x);
+			setCenterY(y);
+		}else {
+			this.x = x;
+			this.y = y;
+		}
+		this.c = c;
+		this.center = center;
+		this.image = image;
+	}
 
 	public abstract void tick();
 	
@@ -72,7 +88,7 @@ public abstract class GameObject {
 	}
 
 	public void setX(int x) {
-		this.x = Game.clamp(x, 0, Game.WIDTH - w - 20);
+		this.x = Game.clamp(x, 0, Game.WIDTH - w);
 	}
 
 	public int getY() {
@@ -80,7 +96,7 @@ public abstract class GameObject {
 	}
 
 	public void setY(int y) {
-		this.y = Game.clamp(y, 0, Game.HEIGHT - h - 40);
+		this.y = Game.clamp(y, 0, Game.HEIGHT - h);
 	}
 
 	public int getW() {
