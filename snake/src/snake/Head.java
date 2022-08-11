@@ -8,7 +8,7 @@ public class Head extends GameObject {
 	public static final int speed = Game.SPACING;
 	public static final int size = speed - 10;
 	
-	public static int moveTime = 250;
+	public static int moveTime = 200;
 	
 	private Move currentDirection = Move.RIGHT;
 	
