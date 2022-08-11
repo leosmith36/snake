@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -22,11 +23,8 @@ public class ObjectHandler {
 	private long time;
 	
 	private boolean gameStarted = false;
-	private boolean mouseClicked = false;
 	
 	private Random random = new Random();
-	
-	private Point mousePosition = new Point();
 	
 	private Head snakeHead;
 
@@ -48,13 +46,6 @@ public class ObjectHandler {
 			}else {
 				deletedObjects.add(object);
 			}
-			if (Game.mouseClicked && (object instanceof snake.Button)) {
-				Button button = (Button) object;
-				if (button.isHovering(mousePosition)){
-					button.execute();
-					Game.mouseClicked = false;
-				}
-			}
 		}
 		objects.removeAll(deletedObjects);
 		
@@ -63,10 +54,10 @@ public class ObjectHandler {
 	public void render(Graphics g) {
 		
 		g.setColor(Color.BLACK);
-		for (int i = 50; i < Game.SIZE; i += 50) {
+		for (int i = Game.SPACING; i < Game.SIZE; i += Game.SPACING) {
 			g.drawLine(i, 0, i, Game.SIZE);
 		}
-		for (int i = 50; i < Game.SIZE; i += 50) {
+		for (int i = Game.SPACING; i < Game.SIZE; i += Game.SPACING) {
 			g.drawLine(0, i, Game.SIZE, i);
 		}
 		
@@ -81,10 +72,17 @@ public class ObjectHandler {
 		float diff = (currentTime - time) / 1000.0f;
 		if (gameStarted && (diff >= 3)) {
 			time = currentTime;
+			int foodX = random.nextInt(Game.SIZE / Game.SPACING) * Game.SPACING + Game.SPACING / 2;
+			int foodY = random.nextInt(Game.SIZE / Game.SPACING) * Game.SPACING + Game.SPACING / 2;
+			while (intersectsSnake(foodX, foodY)) {
+				foodX = random.nextInt(Game.SIZE / Game.SPACING) * Game.SPACING + Game.SPACING / 2;
+				foodY = random.nextInt(Game.SIZE / Game.SPACING) * Game.SPACING + Game.SPACING / 2;
+			}
+
 			addObject(new Food(
 					this,
-					random.nextInt(Game.SIZE / 50) * 50 + 25,
-					random.nextInt(Game.SIZE / 50) * 50 + 25,
+					foodX,
+					foodY,
 					new Color(0,0,0,0),
 					true
 					));
@@ -121,18 +119,6 @@ public class ObjectHandler {
 			object.remove();
 		}
 		newObjects.clear();
-	}
-
-	public Point getMousePosition() {
-		return mousePosition;
-	}
-
-	public void setMousePosition(Point mousePosition) {
-		this.mousePosition = mousePosition;
-	}
-	
-	public void mouseClick() {
-		mouseClicked = true;
 	}
 	
 	public void makeGame() {
@@ -193,5 +179,16 @@ public class ObjectHandler {
 	
 	public Head getSnakeHead() {
 		return snakeHead;
+	}
+	
+	public boolean intersectsSnake(int x, int y) {
+		for (GameObject object : objects) {
+			if (object instanceof snake.Segment || object instanceof snake.Head) {
+				if (object.getRect().contains(x, y)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

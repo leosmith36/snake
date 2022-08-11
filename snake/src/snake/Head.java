@@ -5,17 +5,17 @@ import java.awt.Rectangle;
 
 public class Head extends GameObject {
 	
-	public static final int speed = 50;
-	public static final int size = 30;
+	public static final int speed = Game.SPACING;
+	public static final int size = speed - 10;
 	
-	public static int moveTime = 300;
+	public static int moveTime = 250;
 	
 	private Move currentDirection = Move.RIGHT;
 	
 	private long time;
 				
 	public Head(ObjectHandler oh, Color c) {
-		super(oh, Game.SIZE / 2 - 25, Game.SIZE / 2 - 25, Head.size, Head.size, c, true, "head_right.png");
+		super(oh, (Game.SQUARES / 2) * Game.SPACING - Game.SPACING / 2, (Game.SQUARES / 2) * Game.SPACING - Game.SPACING / 2, Head.size, Head.size, c, true, "head_right.png");
 		time = System.currentTimeMillis();
 	}
 

@@ -24,18 +24,21 @@ public class Button extends GameObject {
 
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
+		if (isHovering(Game.mousePosition)){
+			c = new Color(c.getRed(), c.getGreen(), c.getBlue(), 127);
+			if (Game.mouseClicked) {
+				execute();
+				Game.mouseClicked = false;
+			}
+		}else {
+			c = new Color(c.getRed(), c.getGreen(), c.getBlue(), 255);
+		}
+		
 		
 	}
 	
 	public void render(Graphics g) {
-		Color newC;
-		if (isHovering(oh.getMousePosition())) {
-			newC = new Color(c.getRed(), c.getGreen(), c.getBlue(), 127);
-		}else {
-			newC = c;
-		}
-		super.render(g, newC);
+		super.render(g, c);
 		g.setColor(textColor);
 		g.setFont(textFont);
 		int stringWidth = g.getFontMetrics().stringWidth(text);

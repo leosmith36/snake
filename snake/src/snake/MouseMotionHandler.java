@@ -19,7 +19,7 @@ public class MouseMotionHandler implements MouseMotionListener {
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		oh.setMousePosition(e.getPoint());
+		Game.mousePosition = e.getPoint();
 		
 	}
 

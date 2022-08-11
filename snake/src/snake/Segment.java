@@ -8,7 +8,7 @@ public class Segment extends GameObject {
 	
 	private int number;
 	
-	public static int size = 25;
+	public static int size = Head.size;
 
 	public Segment(ObjectHandler oh, int number) {
 		super(oh, 0, 0, Segment.size, Segment.size, Segment.getCorrespondingColor(number));

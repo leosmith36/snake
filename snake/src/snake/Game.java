@@ -3,14 +3,18 @@ package snake;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-	public static final int SIZE = 700;
+	public static final int SPACING = 40;
+	public static final int SQUARES = 15;
+	public static final int SIZE = SPACING * SQUARES;
 	
 	public static boolean mouseClicked = false;
+	public static Point mousePosition = new Point(0,0);
 	
 	private boolean running = false;
 	private Thread thread;	

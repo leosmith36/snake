@@ -55,6 +55,12 @@ public class Text extends GameObject{
 	}
 	
 	public void updateText() {
-		text = String.format(rawText, textValue.getAsInt());
+		if (textValue != null && rawText != null) {
+			text = String.format(rawText, textValue.getAsInt());
+		}
+	}
+	
+	public void changeText(String text) {
+		this.text = text;
 	}
 }
